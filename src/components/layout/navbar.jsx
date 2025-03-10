@@ -6,7 +6,7 @@ const Navbar = () => {
       <h1>Finanzas al Día</h1>
       <ul>
         <li><Link to="/">Inicio</Link></li>
-        <li><Link to="/dashboard">Dashboard</Link></li>
+        <li><Link to="/page?section=dashboard&type=all">Dashboard</Link></li>
         Ingresos
         <ul>
           <li><Link to="/page?section=categories&type=incomes">Categorías</Link></li>

@@ -1,5 +1,6 @@
 import Sidebar from "../components/layout/sidebar";
 import Topbar from "../components/layout/topbar";
+import Footer from "../components/layout/footer";
 
 const Layout = ({ children }) => {
   return (
@@ -14,7 +15,8 @@ const Layout = ({ children }) => {
                 {children}
               </div>
             </div>
-          </div>  
+            <Footer />
+          </div> 
         </div>
       </div>
     </>

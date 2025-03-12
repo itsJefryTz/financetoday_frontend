@@ -8,7 +8,7 @@ const Topbar = () => {
                 <i className="fa fa-bars"></i>
             </button>
 
-            {/* Topbar Search */}
+            {/* Topbar Search 
             <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div className="input-group">
                     <input 
@@ -24,17 +24,17 @@ const Topbar = () => {
                         </button>
                     </div>
                 </div>
-            </form>
+            </form> */}
 
             <ul className="navbar-nav ml-auto">
 
-                {/* Nav Item - Search Dropdown (Visible Only XS) */}
+                {/* Nav Item - Search Dropdown (Visible Only XS) 
                 <li className="nav-item dropdown no-arrow d-sm-none">
                     <a className="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i className="fas fa-search fa-fw"></i>
                     </a>
-                    {/* Dropdown - Search */}
+                    {/* Dropdown - Search
                     <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                         aria-labelledby="searchDropdown">
                         <form className="form-inline mr-auto w-100 navbar-search">
@@ -54,7 +54,7 @@ const Topbar = () => {
                             </div>
                         </form>
                     </div>
-                </li>
+                </li> */}
 
                 {/* Nav Item - Alerts */}
                 <li className="nav-item dropdown no-arrow mx-1">
@@ -62,7 +62,7 @@ const Topbar = () => {
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i className="fas fa-bell fa-fw"></i>
                         {/* Counter - Alerts */}
-                        <span className="badge badge-danger badge-counter">3+</span>
+                        <span className="badge badge-success badge-counter">3+</span>
                     </a>
                     {/* Dropdown - Alerts */}
                     <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -113,7 +113,7 @@ const Topbar = () => {
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i className="fas fa-envelope fa-fw"></i>
                         {/* Counter - Messages */}
-                        <span className="badge badge-danger badge-counter">7</span>
+                        <span className="badge badge-success badge-counter">7</span>
                     </a>
                     {/* Dropdown - Messages */}
                     <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"

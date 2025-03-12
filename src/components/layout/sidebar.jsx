@@ -24,8 +24,8 @@ const Sidebar = () => {
             {/* Nav Item - Dashboard */}
             <li className={`nav-item ${section === 'dashboard' ? 'active' : ''}`}>
                 <Link className="nav-link" to="/page?section=dashboard&type=all">
-                    <i className="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
+                    <i class="bi bi-bar-chart-line-fill"></i>
+                    <span>Resumen</span>
                 </Link>
             </li>
 
@@ -38,7 +38,7 @@ const Sidebar = () => {
             {/* Nav Item - Income Collapse Menu */}
             <li className={`nav-item ${section === 'incomes' || type === 'incomes' ? 'active' : ''}`}>
               <span className="nav-link collapsed" data-toggle="collapse" data-target="#collapseIncomes" aria-expanded="true" aria-controls="collapseIncomes" style={{ cursor: 'pointer' }}>
-                <i className="fas fa-fw fa-wrench"></i>
+                <i class="bi bi-chevron-double-up"></i>
                 <span>Ingresos</span>
               </span>
                 <div id="collapseIncomes" className="collapse" aria-labelledby="headingIncomes" data-parent="#accordionSidebar">
@@ -53,7 +53,7 @@ const Sidebar = () => {
             {/* Nav Item - Expense Collapse Menu */}
             <li className={`nav-item ${section === 'expenses' || type === 'expenses' ? 'active' : ''}`}>
               <span className="nav-link collapsed" data-toggle="collapse" data-target="#collapseExpenses" aria-expanded="true" aria-controls="collapseExpenses" style={{ cursor: 'pointer' }}>
-                <i className="fas fa-fw fa-wrench"></i>
+                <i class="bi bi-chevron-double-down"></i>
                 <span>Gastos</span>
               </span>
                 <div id="collapseExpenses" className="collapse" aria-labelledby="headingExpenses" data-parent="#accordionSidebar">
@@ -68,7 +68,7 @@ const Sidebar = () => {
             {/* Nav Item - Reports Collapse Menu */}
             <li className={`nav-item ${section === 'reports' || type === 'reports' ? 'active' : ''}`}>
               <span className="nav-link collapsed" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseReports" style={{ cursor: 'pointer' }}>
-                <i className="fas fa-fw fa-wrench"></i>
+                <i class="bi bi-list-columns-reverse"></i>
                 <span>Reportes</span>
               </span>
                 <div id="collapseReports" className="collapse" aria-labelledby="headingReports" data-parent="#accordionSidebar">
@@ -85,6 +85,20 @@ const Sidebar = () => {
 
             {/* Divider */}
             <hr className="sidebar-divider d-none d-md-block" />
+
+            {/* Heading */}
+            <div className="sidebar-heading">Otros</div>
+
+            {/* Nav Item - API */}
+            <li className={`nav-item ${section === 'api' ? 'active' : ''}`}>
+                <Link className="nav-link" to="/page?section=dashboard&type=all">
+                    <i class="bi bi-filetype-json"></i>
+                    <span>API</span>
+                </Link>
+            </li>
+
+            {/* Divider */}
+            <hr className="sidebar-divider" />
 
             {/* Sidebar Toggler (Sidebar) */}
             <div className="text-center d-none d-md-inline">

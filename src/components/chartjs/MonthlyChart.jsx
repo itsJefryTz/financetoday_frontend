@@ -18,7 +18,7 @@ const MonthlyChart = ({ values }) => {
                 datasets: [{
                     label: 'Balance Mensual',
                     data: values, // Usar los balances pasados como prop.
-                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    backgroundColor: 'rgba(85, 205, 142, 100)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1,
                 }]

@@ -33,6 +33,7 @@ const Login = () => {
 
             // Guardar datos del usuario en localStorage.
             localStorage.setItem('user_data', JSON.stringify(userResponse.data));
+            console.log(userResponse.data)
             
             // Muestra un toast de éxito.
             toast.success('Inicio de sesión exitoso', {

@@ -1,6 +1,9 @@
 import React from 'react';
 
 const Topbar = () => {
+    const userDataString = localStorage.getItem('user_data');
+    const userData = JSON.parse(userDataString);
+
     return (
         <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
             {/* Sidebar Toggle (Topbar) */}
@@ -62,36 +65,14 @@ const Topbar = () => {
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i className="fas fa-bell fa-fw"></i>
                         {/* Counter - Alerts */}
-                        <span className="badge badge-success badge-counter">3+</span>
+                        <span className="badge badge-success badge-counter">1</span>
                     </a>
                     {/* Dropdown - Alerts */}
                     <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="alertsDropdown">
-                        <h6 className="dropdown-header">
-                            Alerts Center
+                        <h6 className="dropdown-header border-success bg-success">
+                            centro de notificaciones
                         </h6>
-                        <a className="dropdown-item d-flex align-items-center" href="#">
-                            <div className="mr-3">
-                                <div className="icon-circle bg-primary">
-                                    <i className="fas fa-file-alt text-white"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="small text-gray-500">December 12, 2019</div>
-                                <span className="font-weight-bold">A new monthly report is ready to download!</span>
-                            </div>
-                        </a>
-                        <a className="dropdown-item d-flex align-items-center" href="#">
-                            <div className="mr-3">
-                                <div className="icon-circle bg-success">
-                                    <i className="fas fa-donate text-white"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="small text-gray-500">December 7, 2019</div>
-                                $290.29 has been deposited into your account!
-                            </div>
-                        </a>
                         <a className="dropdown-item d-flex align-items-center" href="#">
                             <div className="mr-3">
                                 <div className="icon-circle bg-warning">
@@ -99,11 +80,11 @@ const Topbar = () => {
                                 </div>
                             </div>
                             <div>
-                                <div className="small text-gray-500">December 2, 2019</div>
-                                Spending Alert: We've noticed unusually high spending for your account.
+                                <div className="small text-gray-500">12/03/2025</div>
+                                Recuerda que esta es una versión beta, si encuentras algún error, repórtalo.
                             </div>
                         </a>
-                        <a className="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                        <a className="dropdown-item text-center small text-gray-500" href="#">Todas las notificaciones</a>
                     </div>
                 </li>
 
@@ -113,26 +94,27 @@ const Topbar = () => {
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i className="fas fa-envelope fa-fw"></i>
                         {/* Counter - Messages */}
-                        <span className="badge badge-success badge-counter">7</span>
+                        <span className="badge badge-success badge-counter">1</span>
                     </a>
                     {/* Dropdown - Messages */}
                     <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="messagesDropdown">
-                        <h6 className="dropdown-header">
-                            Message Center
+                        <h6 className="dropdown-header border-success bg-success">
+                            Centro de mensajes
                         </h6>
                         <a className="dropdown-item d-flex align-items-center" href="#">
                             <div className="dropdown-list-image mr-3">
-                                <img className="rounded-circle" src="img/undraw_profile_3.svg" alt="..." />
+                                <img className="rounded-circle" src="/assets/img/undraw_profile_3.svg" alt="..." />
                                 <div className="status-indicator bg-warning"></div>
                             </div>
                             <div>
-                                <div className="text-truncate">Last month's report looks great, I am very happy with
-                                    the progress so far, keep up the good work!</div>
+                                <div className="text-truncate">
+                                    Bienvenido, estamos felices de tenerte aquí.
+                                </div>
                                 <div className="small text-gray-500">Morgan Alvarez · 2d</div>
                             </div>
                         </a>
-                        <a className="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                        <a className="dropdown-item text-center small text-gray-500" href="#">Todos los mensajes</a>
                     </div>
                 </li>
 
@@ -142,13 +124,13 @@ const Topbar = () => {
                 <li className="nav-item dropdown no-arrow">
                     <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{userData.username}</span>
                         <img className="img-profile rounded-circle" src="/assets/img/undraw_profile.svg" alt="Profile" />
                     </a>
                     {/* Dropdown - User Information */}
                     <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
-                        <a className="dropdown-item" href="#">
+                        {/* <a className="dropdown-item" href="#">
                             <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
                         </a>
@@ -160,10 +142,10 @@ const Topbar = () => {
                             <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                             Activity Log
                         </a>
-                        <div className="dropdown-divider"></div>
+                        <div className="dropdown-divider"></div> */}
                         <a className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                             <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Logout
+                            Cerrar sesión
                         </a>
                     </div>
                 </li>

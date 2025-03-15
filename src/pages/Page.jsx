@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import $ from "jquery";
@@ -6,6 +6,7 @@ import "datatables.net-dt/css/dataTables.dataTables.css";
 import "datatables.net";
 
 import MonthlyChart from '../components/chartjs/MonthlyChart';
+import { obtenerDatosDashboardUsuario } from '../js/api';
 
 const Page = () => {
     const location = useLocation();
@@ -13,90 +14,121 @@ const Page = () => {
     const section = queryParams.get('section');
     const type = queryParams.get('type');
 
-    const monthlyBalances = [1200, 1900, -3000, 500, 2000, 2500, 3000, 4000, 3500, 4500, 5000, 6000];
+    /*const tokenAcceso = localStorage.getItem('user_token_access');
+    const tokenRefresh = localStorage.getItem('user_token_refresh');*/
+    const [userDashboardData, setUserDashboardData] = useState(null);
+
+    const [loading, setLoading] = useState(true);
+
+    //const monthlyBalances = [1200, 1900, -3000, 500, 2000, 2500, 3000, 4000, 3500, 4500, 5000, 6000];
+    const [monthlyBalances, setMonthlyBalances] = useState([]);
 
     useEffect(() => {
-          // Destruir la instancia existente de DataTable si ya está inicializada.
-          if ($.fn.DataTable.isDataTable("#tableMonthlyBalance")) {
-            $("#tableMonthlyBalance").DataTable().destroy();
-          }
-    
-          // Inicializar DataTables con configuración de ordenamiento y paginación.
-          $("#tableMonthlyBalance").DataTable({
-            order: [[6, "desc"]], // Ordena por la columna "Fecha de vencimiento".
-            pageLength: 10, // Número de filas por página.
-            lengthMenu: [5, 10, 15, 20, 50, 100], // Opciones de filas por página.
-            pagingType: "full_numbers", // Tipo de controles de paginación.
-            language: {
-              paginate: {
-                first: "<<",
-                last: ">>",
-                next: ">",
-                previous: "<",
-              },
-              search: "Buscar: ",
-              lengthMenu: "Mostrar _MENU_ registros por página.",
-              zeroRecords: "No se encontraron registros.",
-              info: "Mostrando página _PAGE_ de _PAGES_.",
-              infoEmpty: "No hay registros disponibles.",
-              infoFiltered: "(filtrado de _MAX_ registros totales).",
-            },
-          });
+        const fetchData = async () => {
+            // Cargar datos del dashboard.
+            const tokenAcceso = localStorage.getItem('user_token_access');
+            const tokenRefresh = localStorage.getItem('user_token_refresh');
+            const datosDashboard = await obtenerDatosDashboardUsuario(tokenAcceso, tokenRefresh);
+            setUserDashboardData(datosDashboard);
+            const { card_data, chart_and_tables } = datosDashboard;
+            const balances = chart_and_tables.monthly_reports.map(report => report.balance);
+            setMonthlyBalances(balances);
 
-          // Destruir la instancia existente de DataTable si ya está inicializada.
-          if ($.fn.DataTable.isDataTable("#tableMainIncome")) {
-            $("#tableMainIncome").DataTable().destroy();
-          }
-    
-          // Inicializar DataTables con configuración de ordenamiento y paginación.
-          $("#tableMainIncome").DataTable({
-            order: [[6, "desc"]], // Ordena por la columna "Fecha de vencimiento".
-            pageLength: 7, // Número de filas por página.
-            lengthMenu: [7, 10, 15, 20, 50, 100], // Opciones de filas por página.
-            pagingType: "full_numbers", // Tipo de controles de paginación.
-            language: {
-              paginate: {
-                first: "<<",
-                last: ">>",
-                next: ">",
-                previous: "<",
-              },
-              search: "Buscar: ",
-              lengthMenu: "Mostrar  _MENU_",
-              zeroRecords: "No se encontraron registros.",
-              info: "_PAGE_ de _PAGES_.",
-              infoEmpty: "No hay registros disponibles.",
-              infoFiltered: "(filtrado de _MAX_ registros totales).",
-            },
-          });
+            // Destruir la instancia existente de DataTable si ya está inicializada.
+            if ($.fn.DataTable.isDataTable("#tableMonthlyBalance")) {
+                $("#tableMonthlyBalance").DataTable().destroy();
+            }
 
-          // Destruir la instancia existente de DataTable si ya está inicializada.
-          if ($.fn.DataTable.isDataTable("#tableMainExpenses")) {
-            $("#tableMainExpenses").DataTable().destroy();
-          }
-    
-          // Inicializar DataTables con configuración de ordenamiento y paginación.
-          $("#tableMainExpenses").DataTable({
-            order: [[6, "desc"]], // Ordena por la columna "Fecha de vencimiento".
-            pageLength: 7, // Número de filas por página.
-            lengthMenu: [7, 10, 15, 20, 50, 100], // Opciones de filas por página.
-            pagingType: "full_numbers", // Tipo de controles de paginación.
-            language: {
-              paginate: {
-                first: "<<",
-                last: ">>",
-                next: ">",
-                previous: "<",
-              },
-              search: "Buscar: ",
-              lengthMenu: "Mostrar  _MENU_",
-              zeroRecords: "No se encontraron registros.",
-              info: "_PAGE_ de _PAGES_.",
-              infoEmpty: "No hay registros disponibles.",
-              infoFiltered: "(filtrado de _MAX_ registros totales).",
-            },
-          });
-      }, []);
+            // Inicializar DataTables con configuración de ordenamiento y paginación.
+            $("#tableMonthlyBalance").DataTable({
+                order: [[1, "asc"]], // Ordenar.
+                pageLength: 12, // Número de filas por página.
+                lengthMenu: [12, 15, 20, 50, 100], // Opciones de filas por página.
+                pagingType: "full_numbers", // Tipo de controles de paginación.
+                language: {
+                    paginate: {
+                        first: "<<",
+                        last: ">>",
+                        next: ">",
+                        previous: "<",
+                    },
+                    search: "Buscar: ",
+                    lengthMenu: "Mostrar _MENU_ registros por página.",
+                    zeroRecords: "No se encontraron registros.",
+                    info: "Mostrando página _PAGE_ de _PAGES_.",
+                    infoEmpty: "No hay registros disponibles.",
+                    infoFiltered: "(filtrado de _MAX_ registros totales).",
+                },
+            });
+
+            // Destruir la instancia existente de DataTable si ya está inicializada.
+            if ($.fn.DataTable.isDataTable("#tableMainIncome")) {
+                $("#tableMainIncome").DataTable().destroy();
+            }
+
+            // Inicializar DataTables con configuración de ordenamiento y paginación.
+            $("#tableMainIncome").DataTable({
+                order: [[3, "desc"]], // Ordenar.
+                pageLength: 7, // Número de filas por página.
+                lengthMenu: [7, 10, 15, 20, 50, 100], // Opciones de filas por página.
+                pagingType: "full_numbers", // Tipo de controles de paginación.
+                language: {
+                    paginate: {
+                        first: "<<",
+                        last: ">>",
+                        next: ">",
+                        previous: "<",
+                    },
+                    search: "Buscar: ",
+                    lengthMenu: "Mostrar  _MENU_",
+                    zeroRecords: "No se encontraron registros.",
+                    info: "_PAGE_ de _PAGES_.",
+                    infoEmpty: "No hay registros disponibles.",
+                    infoFiltered: "(filtrado de _MAX_ registros totales).",
+                },
+            });
+
+            // Destruir la instancia existente de DataTable si ya está inicializada.
+            if ($.fn.DataTable.isDataTable("#tableMainExpenses")) {
+                $("#tableMainExpenses").DataTable().destroy();
+            }
+
+            // Inicializar DataTables con configuración de ordenamiento y paginación.
+            $("#tableMainExpenses").DataTable({
+                order: [[3, "desc"]], // Ordena por la columna "Fecha de vencimiento".
+                pageLength: 7, // Número de filas por página.
+                lengthMenu: [7, 10, 15, 20, 50, 100], // Opciones de filas por página.
+                pagingType: "full_numbers", // Tipo de controles de paginación.
+                language: {
+                    paginate: {
+                        first: "<<",
+                        last: ">>",
+                        next: ">",
+                        previous: "<",
+                    },
+                    search: "Buscar: ",
+                    lengthMenu: "Mostrar  _MENU_",
+                    zeroRecords: "No se encontraron registros.",
+                    info: "_PAGE_ de _PAGES_.",
+                    infoEmpty: "No hay registros disponibles.",
+                    infoFiltered: "(filtrado de _MAX_ registros totales).",
+                },
+            });
+
+            setLoading(false);
+        };
+
+        fetchData();
+    }, []);
+
+    /*useEffect(() => {
+        // Este efecto se ejecutará cada vez que userDashboardData cambie.
+        console.log(userDashboardData);
+    }, [userDashboardData]);*/
+
+    if (loading) {
+        return <div>Cargando...</div>; // Mostrar mensaje de carga.
+    }
 
     let content;
     if (section === 'dashboard') {
@@ -116,7 +148,7 @@ const Page = () => {
                                         }}>
                                             Total Ingresos (este mes)
                                         </div>
-                                        <div className="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                        <div className="h5 mb-0 font-weight-bold text-gray-800">${userDashboardData && userDashboardData.card_data.total_income_this_month}</div>
                                     </div>
                                     <div className="col-auto">
                                         <i className="bi bi-chevron-double-up text-gray-300 fa-2x"></i>
@@ -138,7 +170,7 @@ const Page = () => {
                                         }}>
                                             Total Gastos (este mes)
                                         </div>
-                                        <div className="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                        <div className="h5 mb-0 font-weight-bold text-gray-800">${userDashboardData && userDashboardData.card_data.total_expenses_this_month}</div>
                                     </div>
                                     <div className="col-auto">
                                         <i className="bi bi-chevron-double-down text-gray-300 fa-2x"></i>
@@ -160,7 +192,7 @@ const Page = () => {
                                         }}>
                                             Balance Total (este mes)
                                         </div>
-                                        <div className="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                        <div className="h5 mb-0 font-weight-bold text-gray-800">${userDashboardData && userDashboardData.card_data.total_balance_this_month}</div>
                                     </div>
                                     <div className="col-auto">
                                         <i className="bi bi-list text-gray-300 fa-2x"></i>
@@ -180,12 +212,12 @@ const Page = () => {
                                             WebkitBackgroundClip: 'text',
                                             WebkitTextFillColor: 'transparent'
                                         }}>
-                                            % Margen (este mes)
+                                            Movimientos (este mes)
                                         </div>
-                                        <div className="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                        <div className="h5 mb-0 font-weight-bold text-gray-800">{userDashboardData && userDashboardData.card_data.total_movements_this_month}</div>
                                     </div>
                                     <div className="col-auto">
-                                        <i className="bi bi-percent fa-2x text-gray-300"></i>
+                                        <i className="bi bi-chevron-contract fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
@@ -230,7 +262,6 @@ const Page = () => {
                                                 <th>Total Ingresos</th>
                                                 <th>Total Gastos</th>
                                                 <th>Total Balance</th>
-                                                <th>% Margen</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -240,99 +271,18 @@ const Page = () => {
                                                 <th>2000</th>
                                                 <th>1200</th>
                                                 <th>800</th>
-                                                <th>40 %</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>11/03/2025</td>
-                                                <td>1000</td>
-                                                <td>600</td>
-                                                <td>400</td>
-                                                <td>40 %</td>
-                                            </tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>11/03/2025</td>
-                                                <td>1000</td>
-                                                <td>600</td>
-                                                <td>400</td>
-                                                <td>40 %</td>
-                                            </tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>11/03/2025</td>
-                                                <td>1000</td>
-                                                <td>600</td>
-                                                <td>400</td>
-                                                <td>40 %</td>
-                                            </tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>11/03/2025</td>
-                                                <td>1000</td>
-                                                <td>600</td>
-                                                <td>400</td>
-                                                <td>40 %</td>
-                                            </tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>11/03/2025</td>
-                                                <td>1000</td>
-                                                <td>600</td>
-                                                <td>400</td>
-                                                <td>40 %</td>
-                                            </tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>11/03/2025</td>
-                                                <td>1000</td>
-                                                <td>600</td>
-                                                <td>400</td>
-                                                <td>40 %</td>
-                                            </tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>11/03/2025</td>
-                                                <td>1000</td>
-                                                <td>600</td>
-                                                <td>400</td>
-                                                <td>40 %</td>
-                                            </tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>11/03/2025</td>
-                                                <td>1000</td>
-                                                <td>600</td>
-                                                <td>400</td>
-                                                <td>40 %</td>
-                                            </tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>11/03/2025</td>
-                                                <td>1000</td>
-                                                <td>600</td>
-                                                <td>400</td>
-                                                <td>40 %</td>
-                                            </tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>11/03/2025</td>
-                                                <td>1000</td>
-                                                <td>600</td>
-                                                <td>400</td>
-                                                <td>40 %</td>
-                                            </tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>11/03/2025</td>
-                                                <td>1000</td>
-                                                <td>600</td>
-                                                <td>400</td>
-                                                <td>77 %</td>
-                                            </tr>
-                                            {/* Puedes agregar más filas aquí */}
+                                            {userDashboardData.chart_and_tables.monthly_reports.map(report => (
+                                                <tr key={report.id}>
+                                                    <td>{report.id}</td>
+                                                    <td className='text-start'><b>{report.start_date}</b></td>
+                                                    <td><i className="bi bi-chevron-double-up text-success"></i> {report.income}</td>
+                                                    <td><i className="bi bi-chevron-double-down text-danger"></i> {report.expense}</td>
+                                                    <td><b><i className='bi bi-list'></i> {report.balance}</b></td>
+                                                </tr>
+                                            ))}
                                         </tbody>
                                     </table>
                                 </div>
@@ -350,7 +300,7 @@ const Page = () => {
                                             background: 'linear-gradient(90deg, rgba(23,153,132,1) 0%, rgba(14,117,101,1) 100%)',
                                             WebkitBackgroundClip: 'text',
                                             WebkitTextFillColor: 'transparent'
-                                        }}><i class="bi bi-chevron-double-up"></i> Ingresos Principales</h6>
+                                        }}><i class="bi bi-chevron-double-up"></i> Total Ingresos este Mes</h6>
                                         <div className="dropdown no-arrow">
                                             <a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -377,72 +327,14 @@ const Page = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
+                                                    {userDashboardData.chart_and_tables.income_this_month.map(income => (
+                                                        <tr key={income.id}>
+                                                            <td>{income.id}</td>
+                                                            <td className='text-start'><b>{income.date}</b></td>
+                                                            <td className='text-start'> {income.category}</td>
+                                                            <td><b><i className="bi bi-chevron-double-up text-success"></i> {income.amount}</b></td>
+                                                        </tr>
+                                                    ))}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -470,7 +362,9 @@ const Page = () => {
                                             background: 'linear-gradient(90deg, rgba(23,153,132,1) 0%, rgba(14,117,101,1) 100%)',
                                             WebkitBackgroundClip: 'text',
                                             WebkitTextFillColor: 'transparent'
-                                        }}><i class="bi bi-chevron-double-down"></i> Gastos Principales</h6>
+                                        }}>
+                                            <i className="bi bi-chevron-double-down"></i> Total Gastos este Mes
+                                        </h6>
                                         <div className="dropdown no-arrow">
                                             <a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -497,72 +391,14 @@ const Page = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>11/03/2025</td>
-                                                        <td>1000</td>
-                                                        <td>600</td>
-                                                    </tr>
+                                                    {userDashboardData.chart_and_tables.expenses_this_month.map(expense => (
+                                                        <tr key={expense.id}>
+                                                            <td>{expense.id}</td>
+                                                            <td className='text-start'><b>{expense.date}</b></td>
+                                                            <td className='text-start'> {expense.category}</td>
+                                                            <td><b><i className="bi bi-chevron-double-down text-danger"></i> {expense.amount}</b></td>
+                                                        </tr>
+                                                    ))}
                                                 </tbody>
                                             </table>
                                         </div>

@@ -31,7 +31,7 @@ const Page = () => {
             const datosDashboard = await obtenerDatosDashboardUsuario(tokenAcceso, tokenRefresh);
             setUserDashboardData(datosDashboard);
             const { card_data, chart_and_tables } = datosDashboard;
-            const balances = chart_and_tables.monthly_reports.map(report => report.balance);
+            const balances = chart_and_tables.monthly_reports_table.monthly_reports.map((report) => report.balance);
             setMonthlyBalances(balances);
 
             // Destruir la instancia existente de DataTable si ya está inicializada.
@@ -82,7 +82,7 @@ const Page = () => {
                     search: "Buscar: ",
                     lengthMenu: "Mostrar  _MENU_",
                     zeroRecords: "No se encontraron registros.",
-                    info: "_PAGE_ de _PAGES_.",
+                    info: "Pág. _PAGE_ de _PAGES_.",
                     infoEmpty: "No hay registros disponibles.",
                     infoFiltered: "(filtrado de _MAX_ registros totales).",
                 },
@@ -109,7 +109,7 @@ const Page = () => {
                     search: "Buscar: ",
                     lengthMenu: "Mostrar  _MENU_",
                     zeroRecords: "No se encontraron registros.",
-                    info: "_PAGE_ de _PAGES_.",
+                    info: "Pág. _PAGE_ de _PAGES_.",
                     infoEmpty: "No hay registros disponibles.",
                     infoFiltered: "(filtrado de _MAX_ registros totales).",
                 },
@@ -268,13 +268,13 @@ const Page = () => {
                                             <tr>
                                                 <th>Total</th>
                                                 <th></th>
-                                                <th>2000</th>
-                                                <th>1200</th>
-                                                <th>800</th>
+                                                <th>{userDashboardData.chart_and_tables.monthly_reports_table.total_income_year}</th>
+                                                <th>{userDashboardData.chart_and_tables.monthly_reports_table.total_expenses_year}</th>
+                                                <th>{userDashboardData.chart_and_tables.monthly_reports_table.total_balance_year}</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {userDashboardData.chart_and_tables.monthly_reports.map(report => (
+                                            {userDashboardData.chart_and_tables.monthly_reports_table.monthly_reports.map((report) => (
                                                 <tr key={report.id}>
                                                     <td>{report.id}</td>
                                                     <td className='text-start'><b>{report.start_date}</b></td>
@@ -331,7 +331,7 @@ const Page = () => {
                                                         <tr key={income.id}>
                                                             <td>{income.id}</td>
                                                             <td className='text-start'><b>{income.date}</b></td>
-                                                            <td className='text-start'> {income.category}</td>
+                                                            <td className='text-start'> {income.category.name}</td>
                                                             <td><b><i className="bi bi-chevron-double-up text-success"></i> {income.amount}</b></td>
                                                         </tr>
                                                     ))}
@@ -395,7 +395,7 @@ const Page = () => {
                                                         <tr key={expense.id}>
                                                             <td>{expense.id}</td>
                                                             <td className='text-start'><b>{expense.date}</b></td>
-                                                            <td className='text-start'> {expense.category}</td>
+                                                            <td className='text-start'> {expense.category.name}</td>
                                                             <td><b><i className="bi bi-chevron-double-down text-danger"></i> {expense.amount}</b></td>
                                                         </tr>
                                                     ))}

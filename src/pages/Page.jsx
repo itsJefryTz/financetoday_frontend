@@ -115,6 +115,33 @@ const Page = () => {
                 },
             });
 
+            // Destruir la instancia existente de DataTable si ya está inicializada.
+            if ($.fn.DataTable.isDataTable("#tableAllIncome")) {
+                $("#tableAllIncome").DataTable().destroy();
+            }
+
+            // Inicializar DataTables con configuración de ordenamiento y paginación.
+            $("#tableAllIncome").DataTable({
+                order: [[1, "desc"]], // Ordenar.
+                pageLength: 10, // Número de filas por página.
+                lengthMenu: [10, 15, 20, 50, 100], // Opciones de filas por página.
+                pagingType: "full_numbers", // Tipo de controles de paginación.
+                language: {
+                    paginate: {
+                        first: "<<",
+                        last: ">>",
+                        next: ">",
+                        previous: "<",
+                    },
+                    search: "Buscar: ",
+                    lengthMenu: "Mostrar _MENU_ registros por página.",
+                    zeroRecords: "No se encontraron registros.",
+                    info: "Mostrando página _PAGE_ de _PAGES_.",
+                    infoEmpty: "No hay registros disponibles.",
+                    infoFiltered: "(filtrado de _MAX_ registros totales).",
+                },
+            });
+
             setLoading(false);
         };
 
@@ -254,7 +281,7 @@ const Page = () => {
                                 <MonthlyChart values={monthlyBalances} />
                                 <hr />
                                 <div className="table-responsive">
-                                    <table className="table table-bordered" id="tableMonthlyBalance" width="100%" cellSpacing="0">
+                                    <table className="table table-striped table-hover table-bordered" id="tableMonthlyBalance" width="100%" cellSpacing="0">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -317,7 +344,7 @@ const Page = () => {
                                     {/* Card Body */}
                                     <div className="card-body">
                                         <div className="table-responsive">
-                                            <table className="table table-bordered" id="tableMainIncome" width="100%" cellSpacing="0">
+                                            <table className="table table-striped table-hover table-bordered" id="tableMainIncome" width="100%" cellSpacing="0">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
@@ -381,7 +408,7 @@ const Page = () => {
                                     {/* Card Body */}
                                     <div className="card-body">
                                         <div className="table-responsive">
-                                            <table className="table table-bordered" id="tableMainExpenses" width="100%" cellSpacing="0">
+                                            <table className="table table-striped table-hover table-bordered" id="tableMainExpenses" width="100%" cellSpacing="0">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
@@ -421,6 +448,58 @@ const Page = () => {
                 </div>
             </>
         );
+    } else if (section === 'incomes' && type === 'all') {
+        content = (
+            <>
+                <div className="card shadow mb-4">
+                    <div className="card-header bg-white py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 className="m-0 font-weight-bold" style={{
+                            background: 'linear-gradient(90deg, rgba(101,216,157,1) 0%, rgba(35,174,149,1) 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent'
+                        }}><i className="bi bi-chevron-double-up text-success"></i> Todos los Ingresos</h6>
+                        <div className="">
+                            <a href="#" className="btn btn-success shadow">
+                                <i class="bi bi-plus-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div className="card-body">
+                        <div className="table-responsive">
+                            <table className="table table-striped table-hover table-bordered" id="tableAllIncome" width="100%" cellSpacing="0">
+                                <thead className="">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Fecha</th>
+                                        <th>Categoría</th>
+                                        <th>Monto</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                {/* <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot> */}
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )    
     }
 
     return (

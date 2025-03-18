@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Layout from '../layouts/layout';
 import Login from '../components/session/login';
 import ProtectedRoute from '../components/session/ProtectedRoute';
-import Page from '../pages/Page';
+import DashboardPage from '../pages/dashboard/dashboard';
+import IncomePage from '../pages/income/income'
 
 const AppRoutes = () => {
     return (
@@ -11,7 +12,8 @@ const AppRoutes = () => {
             <Routes>
                 <Route path='/login' element={<Login />} />
                 <Route path="/" element={<Navigate to="/page?section=dashboard&type=all" />} />     
-                <Route path="/page" element={<ProtectedRoute><Layout><Page /></Layout></ProtectedRoute>} />
+                <Route path="/dashboard" element={<ProtectedRoute><Layout><DashboardPage /></Layout></ProtectedRoute>} />
+                <Route path="/income" element={<ProtectedRoute><Layout><IncomePage /></Layout></ProtectedRoute>} />
                 {/* <Route path="/profile/:id" element={<Profile />} />
                 <Route path="*" element={<NotFound />} /> */}
             </Routes>

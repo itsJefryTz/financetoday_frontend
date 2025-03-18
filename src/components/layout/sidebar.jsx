@@ -3,9 +3,6 @@ import { useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const section = queryParams.get('section');
-  const type = queryParams.get('type');
 
     return (
         <ul className="navbar-nav sidebar sidebar-dark accordion" style={{ backgroundColor: 'rgb(85,205,142)', backgroundImage: 'linear-gradient(180deg, rgba(85,205,142,1) 0%, rgba(27,170,147,1) 100%)'}} id="accordionSidebar">
@@ -22,8 +19,8 @@ const Sidebar = () => {
             <hr className="sidebar-divider my-0" />
 
             {/* Nav Item - Dashboard */}
-            <li className={`nav-item ${section === 'dashboard' ? 'active' : ''}`}>
-                <Link className="nav-link" to="/page?section=dashboard&type=all">
+            <li className={`nav-item ${location.pathname === '/dashboard' ? 'active' : ''}`}>
+                <Link className="nav-link" to="/dashboard">
                     <i class="bi bi-bar-chart-line-fill"></i>
                     <span>Resumen</span>
                 </Link>
@@ -36,7 +33,7 @@ const Sidebar = () => {
             <div className="sidebar-heading">Menú</div>
 
             {/* Nav Item - Income Collapse Menu */}
-            <li className={`nav-item ${section === 'incomes' || type === 'incomes' ? 'active' : ''}`}>
+            <li className={`nav-item ${location.pathname === '/income' ? 'active' : ''}`}>
               <span className="nav-link collapsed" data-toggle="collapse" data-target="#collapseIncomes" aria-expanded="true" aria-controls="collapseIncomes" style={{ cursor: 'pointer' }}>
                 <i class="bi bi-chevron-double-up"></i>
                 <span>Ingresos</span>
@@ -45,13 +42,13 @@ const Sidebar = () => {
                     <div className="bg-white py-2 collapse-inner rounded">
                         <h6 className="collapse-header">Opciones:</h6>
                         <Link className="collapse-item" to="/page?section=categories&type=incomes">Categorías</Link>
-                        <Link className="collapse-item" to="/page?section=incomes&type=all">Ver todos</Link>
+                        <Link className="collapse-item" to="/income">Ver todos</Link>
                     </div>
                 </div>
             </li>
 
             {/* Nav Item - Expense Collapse Menu */}
-            <li className={`nav-item ${section === 'expenses' || type === 'expenses' ? 'active' : ''}`}>
+            <li className={`nav-item ${location.pathname === '/expenses' ? 'active' : ''}`}>
               <span className="nav-link collapsed" data-toggle="collapse" data-target="#collapseExpenses" aria-expanded="true" aria-controls="collapseExpenses" style={{ cursor: 'pointer' }}>
                 <i class="bi bi-chevron-double-down"></i>
                 <span>Gastos</span>
@@ -66,7 +63,7 @@ const Sidebar = () => {
             </li>
 
             {/* Nav Item - Reports Collapse Menu */}
-            <li className={`nav-item ${section === 'reports' || type === 'reports' ? 'active' : ''}`}>
+            <li className={`nav-item ${location.pathname === '/reports' ? 'active' : ''}`}>
               <span className="nav-link collapsed" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseReports" style={{ cursor: 'pointer' }}>
                 <i class="bi bi-list-columns-reverse"></i>
                 <span>Reportes</span>
@@ -90,7 +87,7 @@ const Sidebar = () => {
             <div className="sidebar-heading">Otros</div>
 
             {/* Nav Item - API */}
-            <li className={`nav-item ${section === 'api' ? 'active' : ''}`}>
+            <li className={`nav-item ${location.pathname === '/api' ? 'active' : ''}`}>
                 <Link className="nav-link" to="/page?section=dashboard&type=all">
                     <i class="bi bi-filetype-json"></i>
                     <span>API</span>

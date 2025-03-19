@@ -273,7 +273,7 @@ const DashboardPage = () => {
                                     <a className="dropdown-item" href="#">Something else here</a>
                                 </div>
                             </div> */}
-                            <a href='http://127.0.0.1:8000/admin/reports/report/?type__exact=Mensual' target='_blank' className='btn btn-sm btn-success shadow-sm'>
+                            <a href='https://thefinanzasaldia.pythonanywhere.com/admin/reports/report/?type__exact=Mensual' target='_blank' className='btn btn-sm btn-success shadow-sm'>
                                 <i class="bi bi-sliders"></i>
                             </a>
                         </div>
@@ -369,7 +369,7 @@ const DashboardPage = () => {
                                     <a className="dropdown-item" href="#">Something else here</a>
                                 </div>
                             </div> */}
-                            <a href='http://127.0.0.1:8000/admin/income/income/' target='_blank' className='btn btn-sm btn-success shadow-sm'>
+                            <a href='https://thefinanzasaldia.pythonanywhere.com/admin/income/income/' target='_blank' className='btn btn-sm btn-success shadow-sm'>
                                 <i class="bi bi-sliders"></i>
                             </a>
                         </div>
@@ -439,7 +439,7 @@ const DashboardPage = () => {
                                     <a className="dropdown-item" href="#">Something else here</a>
                                 </div>
                             </div> */}
-                            <a href='http://127.0.0.1:8000/admin/expense/expense/' target='_blank' className='btn btn-sm btn-success shadow-sm'>
+                            <a href='https://thefinanzasaldia.pythonanywhere.com/expense/expense/' target='_blank' className='btn btn-sm btn-success shadow-sm'>
                                 <i class="bi bi-sliders"></i>
                             </a>
                         </div>

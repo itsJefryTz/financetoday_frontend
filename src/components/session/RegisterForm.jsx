@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../js/api';
 import { FunctionDisabledToast } from '../../js/utils';
 
-const LoginForm = () => {
+const RegisterForm = () => {
     const navigate = useNavigate();
     
     const [username, setUsername] = useState('');
@@ -16,36 +16,25 @@ const LoginForm = () => {
         e.preventDefault();
         
         // Muestra un toast de carga.
-        const loadingToast = toast.loading('Iniciando sesión...');
+        const loadingToast = toast.loading('Registrando el usuario...');
 
         try {
-            const response = await axios.post(`${API_BASE_URL}users/api/token/`, {
+            const response = await axios.post(`${API_BASE_URL}users/api/user_registration/`, {
                 username,
                 password,
             });
-            localStorage.setItem('user_token_access', response.data.access);
-            localStorage.setItem('user_token_refresh', response.data.refresh);
-
-            const userResponse = await axios.get(`${API_BASE_URL}users/api/user_info/`, {
-                headers: {
-                    Authorization: `Bearer ${response.data.access}`,
-                },
-            });
-
-            // Guardar datos del usuario en localStorage.
-            localStorage.setItem('user_data', JSON.stringify(userResponse.data));
             
             // Muestra un toast de éxito.
-            toast.success('Inicio de sesión exitoso', {
-                id: loadingToast, // Reemplaza el toast de carga.
+            toast.success('¡Usuario registrado con éxito!', {
+                id: loadingToast,
             });
 
-            navigate('/dashboard');
+            navigate('/login');
         } catch (error) {
             // Manejo de errores.
             if (error.response) {
-                if (error.response.status === 401) {
-                    toast.error('Credenciales inválidas. Por favor, verifica tu usuario y contraseña.', {
+                if (error.response.status === 400) {
+                    toast.error('Ya existe un usuario con este nombre.', {
                         id: loadingToast, // Reemplaza el toast de carga.
                     });
                 } else {
@@ -67,22 +56,6 @@ const LoginForm = () => {
 
     return (
         <>
-            {/* <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Usuario"
-                />
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Contraseña"
-                />
-                <button type="submit">Iniciar sesión</button>
-            </form> */}
             <div className="container">
                 {/* Outer Row */}
                 <div className="row justify-content-center">
@@ -95,7 +68,7 @@ const LoginForm = () => {
                                     <div className="col-lg-6">
                                         <div className="p-5">
                                             <div className="text-center">
-                                                <h1 className="h4 text-gray-900 mb-4">Iniciar sesión</h1>
+                                                <h1 className="h4 text-gray-900 mb-4">Registrarme</h1>
                                             </div>
                                             <form className="user" onSubmit={handleSubmit}>
                                                 <div className="form-group">
@@ -131,7 +104,7 @@ const LoginForm = () => {
                                                     </div>
                                                 </div>
                                                 <button type="submit" className="btn btn-success btn-user btn-block">
-                                                    Iniciar sesión
+                                                    Registrarme
                                                 </button>
                                                 <hr />
                                                 <a href="#" onClick={FunctionDisabledToast} className="btn btn-google btn-user btn-block">
@@ -143,10 +116,7 @@ const LoginForm = () => {
                                             </form>
                                             <hr />
                                             <div className="text-center">
-                                                <a className="small" href="#" onClick={FunctionDisabledToast}>¿Has olvidado tu contraseña?</a>
-                                            </div>
-                                            <div className="text-center">
-                                                <a className="small" href="/register">Crear una cuenta</a>
+                                                <a className="small" href="/login">Crear una cuenta</a>
                                             </div>
                                         </div>
                                     </div>
@@ -160,4 +130,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default RegisterForm;

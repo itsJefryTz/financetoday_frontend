@@ -260,18 +260,21 @@ const DashboardPage = () => {
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent'
                             }}><i class="bi bi-bar-chart-line-fill"></i> Total Balance por Mes</h6>
-                            <div className="dropdown no-arrow">
+                            {/* <div className="dropdown no-arrow">
                                 <a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                     <div className="dropdown-header">Opciones:</div>
                                     <a className="dropdown-item" href="#">Actualizar gráfico</a>
-                                    {/* <a className="dropdown-item" href="#">Another action</a>
+                                    <a className="dropdown-item" href="#">Another action</a>
                                     <div className="dropdown-divider"></div>
-                                    <a className="dropdown-item" href="#">Something else here</a> */}
+                                    <a className="dropdown-item" href="#">Something else here</a>
                                 </div>
-                            </div>
+                            </div> */}
+                            <a href='http://127.0.0.1:8000/admin/reports/report/?type__exact=Mensual' target='_blank' className='btn btn-sm btn-success shadow-sm'>
+                                <i class="bi bi-sliders"></i>
+                            </a>
                         </div>
                         {/* Card Body */}
                         <div className="card-body" >
@@ -352,18 +355,21 @@ const DashboardPage = () => {
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent'
                             }}><i class="bi bi-chevron-double-up"></i> Total Ingresos por Mes</h6>
-                            <div className="dropdown no-arrow">
+                            {/* <div className="dropdown no-arrow">
                                 <a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div className="dropdown-header">Dropdown Header:</div>
-                                    <a className="dropdown-item" href="#">Action</a>
+                                    <div className="dropdown-header">Opciones:</div>
+                                    <a className="dropdown-item" href="#">Actualizar gráfico</a>
                                     <a className="dropdown-item" href="#">Another action</a>
                                     <div className="dropdown-divider"></div>
                                     <a className="dropdown-item" href="#">Something else here</a>
                                 </div>
-                            </div>
+                            </div> */}
+                            <a href='http://127.0.0.1:8000/admin/income/income/' target='_blank' className='btn btn-sm btn-success shadow-sm'>
+                                <i class="bi bi-sliders"></i>
+                            </a>
                         </div>
                         {/* Card Body */}
                         <div className="card-body">
@@ -419,18 +425,21 @@ const DashboardPage = () => {
                             }}>
                                 <i className="bi bi-chevron-double-down"></i> Total Gastos por Mes
                             </h6>
-                            <div className="dropdown no-arrow">
+                            {/* <div className="dropdown no-arrow">
                                 <a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div className="dropdown-header">Dropdown Header:</div>
-                                    <a className="dropdown-item" href="#">Action</a>
+                                    <div className="dropdown-header">Opciones:</div>
+                                    <a className="dropdown-item" href="#">Actualizar gráfico</a>
                                     <a className="dropdown-item" href="#">Another action</a>
                                     <div className="dropdown-divider"></div>
                                     <a className="dropdown-item" href="#">Something else here</a>
                                 </div>
-                            </div>
+                            </div> */}
+                            <a href='http://127.0.0.1:8000/admin/expense/expense/' target='_blank' className='btn btn-sm btn-success shadow-sm'>
+                                <i class="bi bi-sliders"></i>
+                            </a>
                         </div>
                         {/* Card Body */}
                         <div className="card-body">

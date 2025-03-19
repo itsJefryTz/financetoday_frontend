@@ -5,12 +5,48 @@ import "datatables.net-dt/css/dataTables.dataTables.css";
 import "datatables.net";
 
 import { GetUserIncomeList } from '../../js/api';
+import { FunctionDisabledToast } from '../../js/utils';
+
+const Modal_EditIncome = ({ isOpen, onClose }) => {
+    if (!isOpen) return null;
+  
+    return (
+        <div className="modal fade show" style={{ display: 'block' }} aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content" style={{ borderRadius: '10px' }}>
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button className="close" type="button" onClick={onClose} aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        Select "Logout" below if you are ready to end your current session.
+                    </div>
+                    <div className="modal-footer">
+                        <button className="btn btn-secondary" type="button" onClick={onClose}>Cancel</button>
+                        <a className="btn btn-primary" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    );
+};
 
 const IncomePage = () => {
     const [loading, setLoading] = useState(true);
     const tokenAcceso = localStorage.getItem('user_token_access');
     const tokenRefresh = localStorage.getItem('user_token_refresh');
     const [userIncomeList, setUserIncomeList] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal_EditIncome = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal_EditIncome = () => {
+        setIsModalOpen(false);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -59,7 +95,7 @@ const IncomePage = () => {
                 <h1 className="h3 mb-0 text-gray-800">Ingresos</h1>
                 <p>Todos</p>
                 </div>
-                <a href="#" className="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                <a href="#" className="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" onClick={FunctionDisabledToast}>
                     <i className="fas fa-download fa-sm text-white-50"></i> Generar Reporte
                 </a>
             </div>
@@ -85,6 +121,7 @@ const IncomePage = () => {
                                     <th>ID</th>
                                     <th style={{minWidth: 130}}>Fecha</th>
                                     <th style={{minWidth: 250}}>Categoría</th>
+                                    <th style={{minWidth: 250}}>Nombre</th>
                                     <th>Monto</th>
                                     <th style={{minWidth: 350}}>Descripción</th>
                                     <th style={{minWidth: 150}}>Acciones</th>
@@ -101,12 +138,14 @@ const IncomePage = () => {
                                         <td>{income.id}</td>
                                         <td className='text-start'><b>{income.date}</b></td>
                                         <td className='text-start'> {income.category.name}</td>
+                                        <td className='text-start'> {income.name}</td>
                                         <td><b><i className="bi bi-chevron-double-up text-success"></i> {income.amount}</b></td>
                                         <td>{income.description}</td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-success"><i class="bi bi-eye-fill"></i></button>
-                                                <button type="button" class="btn btn-warning"><i class="bi bi-pencil-fill"></i></button>
+                                                <button type="button" class="btn btn-success" onClick={FunctionDisabledToast}><i class="bi bi-eye-fill"></i></button>
+                                                <button type="button" class="btn btn-warning" onClick={openModal_EditIncome}><i class="bi bi-pencil-fill"></i></button>
+                                                <Modal_EditIncome isOpen={isModalOpen} onClose={closeModal_EditIncome} />
                                                 <button type="button" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                                             </div>
                                         </td>

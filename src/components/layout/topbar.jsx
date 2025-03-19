@@ -6,12 +6,15 @@ const Topbar = () => {
 
     return (
         <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-            {/* Sidebar Toggle (Topbar) */}
+            <div className="mx-1">
+                Finanzas al Día <sup>v1</sup>
+            </div>
+
+            {/* Sidebar Toggle (Topbar)
             <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
                 <i className="fa fa-bars"></i>
             </button>
-
-            {/* Topbar Search 
+            
             <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div className="input-group">
                     <input 
@@ -137,12 +140,12 @@ const Topbar = () => {
                         <a className="dropdown-item" href="#">
                             <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                             Settings
+                        </a>*/}
+                        <a className="dropdown-item" href="#" target='_blank' rel='noopener noreferrer'>
+                            <i class="bi bi-box-arrow-in-up-right mr-2 text-gray-400"></i>
+                            Panel Administrativo
                         </a>
-                        <a className="dropdown-item" href="#">
-                            <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Activity Log
-                        </a>
-                        <div className="dropdown-divider"></div> */}
+                        <div className="dropdown-divider"></div>
                         <a className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                             <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Cerrar sesión

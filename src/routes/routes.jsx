@@ -10,9 +10,9 @@ const AppRoutes = () => {
     return (
         <Router>
             <Routes>
-                <Route path='/login' element={<Login />} />
-                <Route path="/" element={<Navigate to="/dashboard" />} />     
-                <Route path="/dashboard" element={<ProtectedRoute><Layout><DashboardPage /></Layout></ProtectedRoute>} />
+                <Route path='/#/login' element={<Login />} />
+                <Route path="/" element={<Navigate to="/#/dashboard" />} />     
+                <Route path="/#/dashboard" element={<ProtectedRoute><Layout><DashboardPage /></Layout></ProtectedRoute>} />
                 {/* <Route path="/income" element={<ProtectedRoute><Layout><IncomePage /></Layout></ProtectedRoute>} />
                 <Route path="/profile/:id" element={<Profile />} />
                 <Route path="*" element={<NotFound />} /> */}

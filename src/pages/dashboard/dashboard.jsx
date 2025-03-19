@@ -41,6 +41,7 @@ const DashboardPage = () => {
                     },
                     search: "Buscar: ",
                     lengthMenu: "Mostrar _MENU_ registros por página.",
+                    loadingRecords: "Cargando...",
                     zeroRecords: "No se encontraron registros.",
                     info: "Mostrando página _PAGE_ de _PAGES_.",
                     infoEmpty: "No hay registros disponibles.",
@@ -295,6 +296,7 @@ const DashboardPage = () => {
                                     <tfoot>
                                         <tr>
                                             <th>Total</th>
+                                            <th></th>
                                             <th></th>
                                             <th>
                                                 {userDashboardData && 

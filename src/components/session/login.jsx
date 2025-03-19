@@ -40,7 +40,7 @@ const Login = () => {
                 id: loadingToast, // Reemplaza el toast de carga.
             });
 
-            navigate('/page?section=dashboard&type=all');
+            navigate('/dashboard');
         } catch (error) {
             // Manejo de errores.
             if (error.response) {

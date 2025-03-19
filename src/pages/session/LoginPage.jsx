@@ -1,9 +1,9 @@
-import Login from "../../components/session/login";
+import LoginForm from "../../components/session/LoginForm";
 
 export default function LoginPage() {
   return (
     <>
-      <Login />
+      <LoginForm />
     </>
   );
 }

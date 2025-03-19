@@ -143,7 +143,7 @@ const Topbar = () => {
                             <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                             Settings
                         </a>*/}
-                        <a className="dropdown-item" href="http://127.0.0.1:8000/admin/" target='_blank' rel='noopener noreferrer'>
+                        <a className="dropdown-item" href="https://thefinanzasaldia.pythonanywhere.com/admin/" target='_blank' rel='noopener noreferrer'>
                             <i class="bi bi-box-arrow-in-up-right mr-2 text-gray-400"></i>
                             Panel Administrativo
                         </a>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FunctionDisabledToast } from '../../js/utils';
+import { FunctionDisabledToast, LogOut } from '../../js/utils';
 
 const Topbar = () => {
     const userDataString = localStorage.getItem('user_data');
@@ -148,7 +148,7 @@ const Topbar = () => {
                             Panel Administrativo
                         </a>
                         <div className="dropdown-divider"></div>
-                        <a className="dropdown-item" href="#" onClick={FunctionDisabledToast} data-toggle="modal" data-target="#logoutModal">
+                        <a className="dropdown-item" href="#" onClick={LogOut} data-toggle="modal" data-target="#logoutModal">
                             <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Cerrar sesión
                         </a>
